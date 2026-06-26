@@ -1,17 +1,327 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Majflow — We Automate Your Client Growth</title>
-    <meta name="description" content="Majflow builds fully automated client acquisition pipelines for businesses across India. 300+ leads weekly. Zero manual effort."/>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet"/>
-    
-    <!-- CSS Link -->
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Majflow — We Automate Your Client Growth</title>
+<meta name="description" content="Majflow builds fully automated client acquisition pipelines for businesses across India. 300+ leads weekly. Zero manual effort."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+/* ── Reset & tokens ───────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D1B4B;
+  --navy2:#1a2d5a;
+  --blue:#2B4EFF;
+  --blue-lt:#6B8FFF;
+  --blue-xlt:#E6EDFF;
+  --green:#1D9E75;
+  --green-lt:#E1F5EE;
+  --amber:#BA7517;
+  --ink:#1A1A1A;
+  --muted:#6B7A9F;
+  --rule:#E0E5F0;
+  --bg:#F8F9FF;
+  --white:#ffffff;
+  --r:8px;
+  --r-lg:16px;
+  --shadow:0 4px 24px rgba(13,27,75,.10);
+  --shadow-lg:0 12px 48px rgba(13,27,75,.18);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--white);overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;outline:none}
+
+/* ── Utility ──────────────────────────────────────── */
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;background:var(--blue-xlt);color:var(--blue)}
+.tag.green{background:var(--green-lt);color:var(--green)}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,4vw,40px);font-weight:700;line-height:1.2;letter-spacing:-.5px;color:var(--navy)}
+.section-sub{font-size:16px;color:var(--muted);line-height:1.7;max-width:520px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;padding:12px 24px;border-radius:var(--r);transition:all .2s}
+.btn-primary{background:var(--blue);color:var(--white)}
+.btn-primary:hover{background:#1D3FDD;transform:translateY(-1px);box-shadow:var(--shadow)}
+.btn-ghost{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.3)}
+.btn-ghost:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.6)}
+.btn-outline{background:transparent;color:var(--blue);border:1.5px solid var(--blue)}
+.btn-outline:hover{background:var(--blue-xlt)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-28px);transition:opacity .6s ease,transform .6s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(28px);transition:opacity .6s ease,transform .6s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+/* ── Navbar ───────────────────────────────────────── */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:999;transition:all .3s}
+#navbar.scrolled{background:rgba(13,27,75,.97);backdrop-filter:blur(12px);box-shadow:0 2px 24px rgba(0,0,0,.2)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-mark{width:34px;height:34px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:var(--white);letter-spacing:-.5px}
+.nav-logo-text{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--white)}
+.nav-logo-text span{font-weight:400;color:var(--blue-lt)}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{font-size:14px;color:rgba(255,255,255,.75);transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--blue);color:var(--white);font-size:13px;font-weight:600;padding:9px 20px;border-radius:var(--r);transition:all .2s}
+.nav-cta:hover{background:#1D3FDD}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:22px;height:2px;background:var(--white);border-radius:2px;transition:all .3s}
+.mobile-menu{display:none;flex-direction:column;gap:0;background:var(--navy);border-top:1px solid var(--navy2);padding:0}
+.mobile-menu a{font-size:15px;color:rgba(255,255,255,.8);padding:14px 24px;border-bottom:1px solid var(--navy2);display:block}
+.mobile-menu .mob-cta{margin:16px 24px 20px;display:block;background:var(--blue);color:var(--white);padding:12px 20px;border-radius:var(--r);text-align:center;font-weight:600}
+
+/* ── Hero ─────────────────────────────────────────── */
+#hero{min-height:100vh;background:var(--navy);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding-top:64px}
+.hero-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(43,78,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(43,78,255,.07) 1px,transparent 1px);background-size:48px 48px;animation:gridShift 20s linear infinite}
+@keyframes gridShift{0%{transform:translate(0,0)}100%{transform:translate(48px,48px)}}
+.hero-blob{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(43,78,255,.18),transparent 70%);right:-100px;top:50%;transform:translateY(-50%);animation:blobPulse 6s ease-in-out infinite}
+@keyframes blobPulse{0%,100%{scale:1;opacity:.8}50%{scale:1.1;opacity:1}}
+.hero-content{position:relative;z-index:2;padding:80px 0 60px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(43,78,255,.2);border:1px solid rgba(43,78,255,.4);border-radius:20px;padding:6px 16px;font-size:12px;color:var(--blue-lt);margin-bottom:28px}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;scale:1}50%{opacity:.5;scale:.8}}
+.hero-h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(36px,6vw,72px);font-weight:700;line-height:1.1;letter-spacing:-1.5px;color:var(--white);margin-bottom:24px}
+.hero-h1 .accent{color:var(--blue);position:relative;display:inline-block}
+.hero-h1 .accent::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:3px;background:var(--blue);border-radius:2px;animation:lineGrow 1s .8s ease forwards;transform:scaleX(0);transform-origin:left}
+@keyframes lineGrow{to{transform:scaleX(1)}}
+.hero-sub{font-size:18px;color:rgba(255,255,255,.65);line-height:1.7;max-width:520px;margin-bottom:36px}
+.hero-sub strong{color:var(--white)}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:56px}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08);border-radius:var(--r-lg);overflow:hidden;max-width:640px}
+.hero-stat{background:rgba(13,27,75,.6);backdrop-filter:blur(8px);padding:20px;text-align:center}
+.hero-stat-num{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--white);line-height:1}
+.hero-stat-lbl{font-size:11px;color:var(--muted);margin-top:4px}
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.4);font-size:12px;animation:scrollBounce 2s ease-in-out infinite}
+@keyframes scrollBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+.scroll-arrow{width:20px;height:20px;border-right:1.5px solid rgba(255,255,255,.3);border-bottom:1.5px solid rgba(255,255,255,.3);transform:rotate(45deg)}
+
+/* ── Trust bar ────────────────────────────────────── */
+#trust{background:var(--bg);border-bottom:1px solid var(--rule);padding:16px 0}
+.trust-inner{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.trust-lbl{font-size:12px;color:var(--muted);white-space:nowrap}
+.trust-sep{width:1px;height:16px;background:var(--rule)}
+.trust-chip{display:flex;align-items:center;gap:6px;background:var(--white);border:1px solid var(--rule);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:500;color:var(--navy)}
+.trust-chip-dot{width:6px;height:6px;border-radius:50%}
+
+/* ── How it works ─────────────────────────────────── */
+#how{padding:100px 0;background:var(--white)}
+.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:56px}
+.how-steps{display:flex;flex-direction:column;gap:0}
+.how-step{display:flex;gap:20px;padding:24px 0;border-bottom:1px solid var(--rule);position:relative;cursor:default}
+.how-step:last-child{border-bottom:none}
+.how-step-left{display:flex;flex-direction:column;align-items:center;gap:0}
+.how-step-num{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;transition:all .3s}
+.how-step-line{width:1px;flex:1;background:var(--rule);margin-top:4px;min-height:20px}
+.how-step:last-child .how-step-line{display:none}
+.how-step-body{padding-top:6px}
+.how-step-title{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.how-step-desc{font-size:14px;color:var(--muted);line-height:1.7}
+.how-step-badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;margin-top:8px;text-transform:uppercase;letter-spacing:.06em}
+.badge-auto{background:var(--green-lt);color:var(--green)}
+.badge-you{background:#FFF3E0;color:#E65100}
+.how-visual{position:sticky;top:100px}
+.pipeline-card{background:var(--navy);border-radius:20px;padding:28px;overflow:hidden;position:relative}
+.pipeline-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(43,78,255,.15),transparent);pointer-events:none}
+.pipe-title{font-size:13px;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px}
+.pipe-step{display:flex;align-items:center;gap:12px;margin-bottom:12px;opacity:.5;transition:opacity .4s,transform .4s;transform:translateX(-4px)}
+.pipe-step.active{opacity:1;transform:translateX(0)}
+.pipe-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.pipe-info{flex:1}
+.pipe-name{font-size:13px;font-weight:600;color:var(--white)}
+.pipe-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:1px}
+.pipe-status{font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px}
+.ps-auto{background:rgba(29,158,117,.2);color:#5DCAA5}
+.ps-you{background:rgba(186,117,23,.2);color:#F5C96A}
+.pipe-connector{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-left:18px}
+.pipe-conn-line{width:1px;height:16px;background:rgba(255,255,255,.1)}
+.pipe-conn-arrow{color:rgba(255,255,255,.2);font-size:12px}
+.pipe-week-badge{background:rgba(43,78,255,.2);border:1px solid rgba(43,78,255,.3);border-radius:8px;padding:10px 14px;margin-top:16px;text-align:center}
+.pwb-top{font-size:11px;color:var(--muted)}
+.pwb-num{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--white)}
+.pwb-lbl{font-size:11px;color:var(--muted)}
+
+/* ── Tools ────────────────────────────────────────── */
+#tools{padding:100px 0;background:var(--bg)}
+.tools-header{text-align:center;margin-bottom:60px}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.tool-card{background:var(--white);border:1px solid var(--rule);border-radius:var(--r-lg);padding:28px;transition:all .3s;position:relative;overflow:hidden}
+.tool-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;transition:opacity .3s;opacity:0}
+.tool-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+.tool-card:hover::before{opacity:1}
+.tool-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px}
+.tool-name{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.tool-role{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px}
+.tool-desc{font-size:14px;color:var(--muted);line-height:1.7}
+.tool-url{font-size:12px;color:var(--blue);margin-top:14px;font-weight:500}
+
+/* ── Results / Stats ──────────────────────────────── */
+#results{padding:100px 0;background:var(--navy);position:relative;overflow:hidden}
+.results-blob{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(43,78,255,.15),transparent 70%);left:-100px;bottom:-100px}
+.results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08);border-radius:var(--r-lg);overflow:hidden;margin:56px 0}
+.result-card{background:rgba(13,27,75,.7);padding:36px 24px;text-align:center;position:relative}
+.result-num{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,4vw,48px);font-weight:700;color:var(--white);line-height:1;margin-bottom:8px}
+.result-num span{color:var(--blue-lt)}
+.result-lbl{font-size:13px;color:var(--muted)}
+
+/* ── Reviews ──────────────────────────────────────── */
+#reviews{padding:100px 0;background:var(--white)}
+.reviews-header{text-align:center;margin-bottom:56px}
+.reviews-track{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.review-card{background:var(--bg);border:1px solid var(--rule);border-radius:var(--r-lg);padding:28px;transition:all .3s}
+.review-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.review-stars{display:flex;gap:3px;margin-bottom:16px}
+.star{color:#F59E0B;font-size:16px}
+.review-text{font-size:15px;color:var(--ink);line-height:1.75;margin-bottom:20px;font-style:italic}
+.review-text::before{content:'\201C';font-size:28px;color:var(--blue);line-height:0;vertical-align:-10px;margin-right:2px}
+.reviewer{display:flex;align-items:center;gap:12px}
+.reviewer-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--white);flex-shrink:0}
+.reviewer-name{font-size:14px;font-weight:600;color:var(--navy)}
+.reviewer-role{font-size:12px;color:var(--muted)}
+
+/* ── Pricing ──────────────────────────────────────── */
+#pricing{padding:100px 0;background:var(--bg)}
+.pricing-header{text-align:center;margin-bottom:56px}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.price-card{background:var(--white);border:1px solid var(--rule);border-radius:var(--r-lg);padding:32px;position:relative;transition:all .3s}
+.price-card.featured{background:var(--navy);border-color:var(--blue)}
+.price-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.price-popular{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--blue);color:var(--white);font-size:11px;font-weight:700;padding:4px 16px;border-radius:20px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.price-name{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.price-name.light{color:rgba(255,255,255,.6)}
+.price-name.dark{color:var(--muted)}
+.price-amt{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;line-height:1;margin-bottom:4px}
+.price-amt.light{color:var(--white)}
+.price-amt.dark{color:var(--navy)}
+.price-period{font-size:13px;margin-bottom:24px}
+.price-period.light{color:rgba(255,255,255,.45)}
+.price-period.dark{color:var(--muted)}
+.price-divider{height:1px;margin-bottom:24px}
+.price-divider.light{background:rgba(255,255,255,.1)}
+.price-divider.dark{background:var(--rule)}
+.price-features{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.price-feature{display:flex;align-items:flex-start;gap:10px;font-size:14px}
+.price-feature.light{color:rgba(255,255,255,.8)}
+.price-feature.dark{color:var(--ink)}
+.feat-check{flex-shrink:0;margin-top:1px}
+
+/* ── Team ─────────────────────────────────────────── */
+#team{padding:100px 0;background:var(--white)}
+.team-header{text-align:center;margin-bottom:56px}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.team-card{text-align:center}
+.team-avatar{width:96px;height:96px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:var(--white);position:relative}
+.team-avatar::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--blue);opacity:0;transition:opacity .3s}
+.team-card:hover .team-avatar::after{opacity:1}
+.team-name{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.team-role{font-size:13px;color:var(--blue);font-weight:600;margin-bottom:10px}
+.team-bio{font-size:14px;color:var(--muted);line-height:1.65}
+
+/* ── FAQ ──────────────────────────────────────────── */
+#faq{padding:100px 0;background:var(--bg)}
+.faq-header{text-align:center;margin-bottom:56px}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:900px;margin:0 auto}
+.faq-item{background:var(--white);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;cursor:pointer;font-size:15px;font-weight:600;color:var(--navy);gap:12px;transition:background .2s}
+.faq-q:hover{background:var(--bg)}
+.faq-icon{width:22px;height:22px;border-radius:50%;background:var(--blue-xlt);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:transform .3s;font-weight:400;line-height:1}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a-inner{padding:0 22px 18px;font-size:14px;color:var(--muted);line-height:1.7;border-top:1px solid var(--rule)}
+
+/* ── Contact ──────────────────────────────────────── */
+#contact{padding:100px 0;background:var(--white)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.contact-info{display:flex;flex-direction:column;gap:24px}
+.contact-item{display:flex;align-items:flex-start;gap:16px}
+.contact-icon{width:44px;height:44px;border-radius:10px;background:var(--blue-xlt);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.contact-label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:3px}
+.contact-val{font-size:15px;color:var(--navy);font-weight:500}
+.contact-val a{color:var(--blue)}
+.contact-form{background:var(--bg);border-radius:var(--r-lg);padding:36px;border:1px solid var(--rule)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.form-group label{font-size:13px;font-weight:600;color:var(--navy)}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:11px 14px;border:1.5px solid var(--rule);border-radius:var(--r);font-size:14px;font-family:inherit;color:var(--ink);background:var(--white);transition:border .2s,box-shadow .2s;outline:none}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(43,78,255,.1)}
+.form-group textarea{resize:vertical;min-height:110px}
+.form-submit{width:100%;padding:14px;background:var(--blue);color:var(--white);font-size:15px;font-weight:600;border-radius:var(--r);transition:all .2s}
+.form-submit:hover{background:#1D3FDD;transform:translateY(-1px);box-shadow:var(--shadow)}
+.form-note{font-size:12px;color:var(--muted);text-align:center;margin-top:10px}
+
+/* ── CTA band ─────────────────────────────────────── */
+#cta{padding:80px 0;background:var(--blue);position:relative;overflow:hidden;text-align:center}
+#cta::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(13,27,75,.4),transparent);pointer-events:none}
+.cta-content{position:relative;z-index:1}
+.cta-h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:700;color:var(--white);margin-bottom:16px;line-height:1.2}
+.cta-sub{font-size:17px;color:rgba(255,255,255,.75);margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.65}
+.cta-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn-white{background:var(--white);color:var(--blue);font-size:15px;font-weight:700}
+.btn-white:hover{background:var(--blue-xlt);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.2)}
+
+/* ── Footer ───────────────────────────────────────── */
+footer{background:#080F2B;padding:60px 0 0}
+.footer-grid{display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.footer-brand-mark{width:32px;height:32px;background:var(--blue);border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:var(--white)}
+.footer-brand-name{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--white)}
+.footer-brand-name span{font-weight:400;color:var(--blue-lt)}
+.footer-desc{font-size:14px;color:rgba(255,255,255,.4);line-height:1.7;margin-bottom:20px;max-width:280px}
+.footer-social-row{display:flex;gap:10px}
+.footer-social{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:16px;color:rgba(255,255,255,.5);transition:all .2s}
+.footer-social:hover{background:var(--blue);color:var(--white)}
+.footer-col-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.5);margin-bottom:18px}
+.footer-link{display:block;font-size:14px;color:rgba(255,255,255,.4);margin-bottom:10px;transition:color .2s}
+.footer-link:hover{color:var(--white)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding:20px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-copy{font-size:13px;color:rgba(255,255,255,.25)}
+.footer-legal{display:flex;gap:20px}
+.footer-legal a{font-size:12px;color:rgba(255,255,255,.25);transition:color .2s}
+.footer-legal a:hover{color:rgba(255,255,255,.6)}
+
+/* ── Map ──────────────────────────────────────────── */
+.map-box{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--rule);margin-top:40px;height:240px;background:var(--bg);display:flex;align-items:center;justify-content:center;position:relative}
+.map-placeholder{text-align:center;color:var(--muted)}
+.map-pin{font-size:32px;margin-bottom:8px}
+.map-addr{font-size:14px;font-weight:500;color:var(--navy)}
+.map-sub{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* ── Scroll to top ────────────────────────────────── */
+#stt{position:fixed;bottom:28px;right:28px;width:44px;height:44px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--white);font-size:20px;box-shadow:var(--shadow);cursor:pointer;opacity:0;transform:translateY(20px);transition:all .3s;z-index:998;border:none}
+#stt.show{opacity:1;transform:translateY(0)}
+#stt:hover{background:#1D3FDD;transform:translateY(-2px)}
+
+/* ── Toast ────────────────────────────────────────── */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--navy);color:var(--white);padding:12px 24px;border-radius:var(--r);font-size:14px;font-weight:500;box-shadow:var(--shadow-lg);transition:transform .3s;z-index:9999;opacity:0}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* ── Responsive ───────────────────────────────────── */
+@media(max-width:900px){
+  .how-grid,.contact-grid{grid-template-columns:1fr}
+  .how-visual{display:none}
+  .tools-grid,.reviews-track,.pricing-grid,.team-grid{grid-template-columns:1fr 1fr}
+  .results-grid{grid-template-columns:1fr 1fr}
+  .faq-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .hero-stats{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .tools-grid,.reviews-track,.pricing-grid,.team-grid,.hero-stats,.results-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .hero-h1{font-size:36px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal,.reveal-left,.reveal-right{opacity:1;transform:none}
+}
+</style>
 </head>
 <body>
 
@@ -114,7 +424,7 @@
           </div>
           <div class="how-step-body">
             <div class="how-step-title">Apify scrapes 300+ leads</div>
-            <div class="how-step-desc">Every Monday at 9am, Apify automatically pulls targeted leads from LinkedIn, Google Maps, or any directory.</div>
+            <div class="how-step-desc">Every Monday at 9am, Apify automatically pulls targeted leads from LinkedIn, Google Maps, or any directory. Company name, website, decision-maker profile — all in one clean CSV.</div>
             <span class="how-step-badge badge-auto">⚡ Automated</span>
           </div>
         </div>
@@ -125,7 +435,7 @@
           </div>
           <div class="how-step-body">
             <div class="how-step-title">Snov.io finds & verifies emails</div>
-            <div class="how-step-desc">Every lead is enriched with a verified business email. Bounces are filtered out.</div>
+            <div class="how-step-desc">Every lead is enriched with a verified business email. Bounces are filtered out before outreach begins — protecting your sender reputation.</div>
             <span class="how-step-badge badge-auto">⚡ Automated</span>
           </div>
         </div>
@@ -135,8 +445,8 @@
             <div class="how-step-line"></div>
           </div>
           <div class="how-step-body">
-            <div class="how-step-title">Instantly.ai sends sequences</div>
-            <div class="how-step-desc">Verified leads are enrolled in a 5-step email sequence over 12 days.</div>
+            <div class="how-step-title">Instantly.ai sends personalised sequences</div>
+            <div class="how-step-desc">Verified leads are enrolled in a 5-step email sequence over 12 days. AI detects positive replies and flags them instantly — no manual inbox monitoring needed.</div>
             <span class="how-step-badge badge-auto">⚡ Automated</span>
           </div>
         </div>
@@ -146,8 +456,8 @@
             <div class="how-step-line"></div>
           </div>
           <div class="how-step-body">
-            <div class="how-step-title">GHL + MessengerFlow qualify</div>
-            <div class="how-step-desc">CRM is updated and WhatsApp qualification messages fire automatically.</div>
+            <div class="how-step-title">GoHighLevel + MessengerFlow qualify leads</div>
+            <div class="how-step-desc">The moment someone replies positively, a CRM contact is created, a WhatsApp message fires to qualify them, and a discovery call gets booked — all without you touching a thing.</div>
             <span class="how-step-badge badge-auto">⚡ Automated</span>
           </div>
         </div>
@@ -157,7 +467,7 @@
           </div>
           <div class="how-step-body">
             <div class="how-step-title">You close the deal</div>
-            <div class="how-step-desc">A warm, pre-qualified lead shows up on your calendar. You just close.</div>
+            <div class="how-step-desc">A warm, pre-qualified lead shows up on your calendar. They already know who you are and what you do. You just need to show up and close.</div>
             <span class="how-step-badge badge-you">👤 Just you</span>
           </div>
         </div>
@@ -212,45 +522,57 @@
   <div class="container">
     <div class="tools-header reveal">
       <span class="tag">The Stack</span>
-      <h2 class="section-title" style="margin-top:14px">5 tools. 1 pipeline.</h2>
-      <p class="section-sub" style="margin:14px auto; text-align:center">Best-in-class tools connected by Make.com.</p>
+      <h2 class="section-title" style="margin-top:14px">5 tools. 1 pipeline.<br/>Enterprise results.</h2>
+      <p class="section-sub" style="margin-top:14px;margin-left:auto;margin-right:auto;text-align:center">Best-in-class tools, connected by Make.com automation — so the whole system runs itself.</p>
     </div>
     <div class="tools-grid">
-      <div class="tool-card reveal">
-        <div class="tool-icon">🤖</div>
+      <div class="tool-card reveal" style="--delay:.0s">
+        <div class="tool-card-top" style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7F77DD,#B0AAFF)"></div>
+        <div class="tool-icon" style="background:#EEEDFE">🤖</div>
         <div class="tool-name">Apify</div>
-        <div class="tool-role">Scraping</div>
-        <div class="tool-desc">Automatically scrapes 300+ leads every week.</div>
+        <div class="tool-role" style="color:#534AB7">Web Scraping & Lead Data</div>
+        <div class="tool-desc">Automatically scrapes 300+ targeted leads every week from LinkedIn, Google Maps, and business directories. No manual searching ever again.</div>
+        <div class="tool-url">apify.com</div>
       </div>
-      <div class="tool-card reveal">
-        <div class="tool-icon">📧</div>
+      <div class="tool-card reveal" style="--delay:.1s">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#1D9E75,#5DCAA5)"></div>
+        <div class="tool-icon" style="background:#E1F5EE">📧</div>
         <div class="tool-name">Snov.io</div>
-        <div class="tool-role">Enrichment</div>
-        <div class="tool-desc">Finds and verifies emails for every lead.</div>
+        <div class="tool-role" style="color:#0F6E56">Email Enrichment</div>
+        <div class="tool-desc">Finds and verifies professional email addresses for every scraped lead. Bounced and risky emails are filtered out automatically before outreach.</div>
+        <div class="tool-url">snov.io</div>
       </div>
-      <div class="tool-card reveal">
-        <div class="tool-icon">✉️</div>
+      <div class="tool-card reveal" style="--delay:.2s">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#D85A30,#F5A07A)"></div>
+        <div class="tool-icon" style="background:#FAECE7">✉️</div>
         <div class="tool-name">Instantly.ai</div>
-        <div class="tool-role">Outreach</div>
-        <div class="tool-desc">Sends personalized cold email sequences.</div>
+        <div class="tool-role" style="color:#993C1D">Cold Email at Scale</div>
+        <div class="tool-desc">Sends personalised 5-step email sequences over 12 days. Handles warm-up, deliverability, inbox rotation, and AI-powered positive reply detection.</div>
+        <div class="tool-url">instantly.ai</div>
       </div>
-      <div class="tool-card reveal">
-        <div class="tool-icon">📊</div>
+      <div class="tool-card reveal" style="--delay:.3s">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#185FA5,#5A9FE0)"></div>
+        <div class="tool-icon" style="background:#E6F1FB">📊</div>
         <div class="tool-name">GoHighLevel</div>
-        <div class="tool-role">CRM</div>
-        <div class="tool-desc">Tracks every lead from reply to close.</div>
+        <div class="tool-role" style="color:#185FA5">CRM & Delivery</div>
+        <div class="tool-desc">Tracks every lead from first reply to signed client. Manages onboarding, invoices, pipelines, and client communication — all in one place.</div>
+        <div class="tool-url">gohighlevel.com</div>
       </div>
-      <div class="tool-card reveal">
-        <div class="tool-icon">💬</div>
+      <div class="tool-card reveal" style="--delay:.4s">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#25D366,#7DE8A8)"></div>
+        <div class="tool-icon" style="background:#ECFDF5">💬</div>
         <div class="tool-name">MessengerFlow</div>
-        <div class="tool-role">WhatsApp</div>
-        <div class="tool-desc">Automated WhatsApp qualification messages.</div>
+        <div class="tool-role" style="color:#15803D">WhatsApp Automation</div>
+        <div class="tool-desc">Fires a WhatsApp qualification message the moment a lead replies positively — before you even check your inbox. Books discovery calls automatically.</div>
+        <div class="tool-url">messengerflow.com</div>
       </div>
-      <div class="tool-card reveal" style="background:var(--navy); color:white;">
-        <div class="tool-icon">⚡</div>
-        <div class="tool-name">Make.com</div>
-        <div class="tool-role">Automation</div>
-        <div class="tool-desc">The glue that connects all te teeno tools.</div>
+      <div class="tool-card reveal" style="--delay:.5s;background:var(--navy);border-color:rgba(43,78,255,.3)">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#2B4EFF,#6B8FFF)"></div>
+        <div class="tool-icon" style="background:rgba(43,78,255,.2)">⚡</div>
+        <div class="tool-name" style="color:var(--white)">Make.com</div>
+        <div class="tool-role" style="color:var(--blue-lt)">The Automation Glue</div>
+        <div class="tool-desc" style="color:rgba(255,255,255,.55)">Connects all 5 tools into one seamless workflow. Triggers every Monday at 9am — no code, no intervention, no exceptions.</div>
+        <div class="tool-url" style="color:var(--blue-lt)">make.com</div>
       </div>
     </div>
   </div>
@@ -258,15 +580,96 @@
 
 <!-- RESULTS -->
 <section id="results">
-  <div class="container">
+  <div class="results-blob"></div>
+  <div class="container" style="position:relative;z-index:1">
     <div class="reveal" style="text-align:center">
-      <h2 class="section-title" style="color:var(--white)">Real Numbers.</h2>
+      <span class="tag">Results</span>
+      <h2 class="section-title" style="color:var(--white);margin-top:14px">Numbers that speak<br/>for themselves.</h2>
+      <p class="section-sub" style="color:var(--muted);margin-top:14px;margin-left:auto;margin-right:auto;text-align:center">Real outcomes from a fully running Majflow pipeline.</p>
     </div>
     <div class="results-grid reveal">
-      <div class="result-card"><div class="result-num">300+</div><div class="result-lbl">Weekly Leads</div></div>
-      <div class="result-card"><div class="result-num">~3%</div><div class="result-lbl">Reply Rate</div></div>
-      <div class="result-card"><div class="result-num">9</div><div class="result-lbl">Warm Leads/wk</div></div>
-      <div class="result-card"><div class="result-num">90%</div><div class="result-lbl">Automated</div></div>
+      <div class="result-card"><div class="result-num">300<span>+</span></div><div class="result-lbl">Leads scraped weekly</div></div>
+      <div class="result-card"><div class="result-num">~<span>3</span>%</div><div class="result-lbl">Average reply rate</div></div>
+      <div class="result-card"><div class="result-num"><span>9</span></div><div class="result-lbl">Warm leads per week</div></div>
+      <div class="result-card"><div class="result-num">90<span>%</span></div><div class="result-lbl">Pipeline automated</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px" class="reveal">
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-lg);padding:24px">
+        <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Break-even at</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--green)">1 client</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.4);margin-top:4px">₹25,000/month retainer</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-lg);padding:24px">
+        <div style="font-size:13px;color:var(--muted);margin-bottom:6px">With 3 clients</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--white)">₹75K/mo</div>
+        <div style="font-size:13px;color:var(--green);margin-top:4px">₹54K net profit</div>
+      </div>
+      <div style="background:rgba(43,78,255,.12);border:1px solid rgba(43,78,255,.3);border-radius:var(--r-lg);padding:24px">
+        <div style="font-size:13px;color:var(--muted);margin-bottom:6px">With 10 clients</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--blue-lt)">₹2.5L/mo</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.4);margin-top:4px">Lean 3-person team</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="container">
+    <div class="reviews-header reveal">
+      <span class="tag">Client reviews</span>
+      <h2 class="section-title" style="margin-top:14px">What our clients say.</h2>
+      <p class="section-sub" style="margin-top:14px;margin-left:auto;margin-right:auto;text-align:center">Real feedback from businesses we've helped automate and scale.</p>
+    </div>
+    <div class="reviews-track">
+      <div class="review-card reveal">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"Earlier, I used to spend 10+ hours every week manually searching for leads. After using Majflow, 300 qualified leads land in my inbox every Monday—I just have to make the calls. Total game changer."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background:linear-gradient(135deg,#2B4EFF,#7F77DD)">RK</div>
+          <div><div class="reviewer-name">Rahul Kapoor</div><div class="reviewer-role">Digital Marketing Agency, Delhi</div></div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"Within just 3 weeks of setting up the pipeline, I landed my first paying client. The ROI turned positive in the very first month. Maajid literally built the entire system for me—it's truly a set-it-and-forget-it solution."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background:linear-gradient(135deg,#1D9E75,#0A6E50)">PS</div>
+          <div><div class="reviewer-name">Priya Sharma</div><div class="reviewer-role">Lead Gen Consultant, Mumbai</div></div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"The GoHighLevel integration was incredibly smooth. My entire CRM and client onboarding process is now fully automated. Maajid explained everything step by step, making the setup easy to understand. I highly recommend his services to any agency owner."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background:linear-gradient(135deg,#D85A30,#FF8C5A)">AK</div>
+          <div><div class="reviewer-name">Arjun Khanna</div><div class="reviewer-role">SaaS Agency, Bangalore</div></div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"WhatsApp automation completely changed the game. As soon as a lead responds, they receive an automated WhatsApp message within 30 seconds. By the time I check my inbox, the call is often already booked. It has made our lead follow-up process faster, smoother, and far more efficient."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background:linear-gradient(135deg,#BA7517,#E09732)">SM</div>
+          <div><div class="reviewer-name">Sneha Malik</div><div class="reviewer-role">Real Estate Consultant, Gurgaon</div></div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"I had heard of all the tools—Apify, Instantly, and GoHighLevel—but I had no idea how to connect them into a working system. Maajid built and launched the entire pipeline in just one week. It required virtually zero effort from my side, and everything worked seamlessly from day one."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background:linear-gradient(135deg,#185FA5,#3A8FD5)">VR</div>
+          <div><div class="reviewer-name">Vikram Rao</div><div class="reviewer-role">Freelance Web Developer, Pune</div></div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"The best investment I've made for my consulting business. The cold email system paid for itself by the second week, delivering real results almost immediately. Maajid is incredibly knowledgeable, responsive, and made the entire process seamless. I’d highly recommend him to anyone who’s serious about scaling their business."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background:linear-gradient(135deg,#7F77DD,#4A3FCC)">NJ</div>
+          <div><div class="reviewer-name">Neha Joshi</div><div class="reviewer-role">HR Consultant, Noida</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -275,24 +678,141 @@
 <section id="pricing">
   <div class="container">
     <div class="pricing-header reveal">
-      <h2 class="section-title">Transparent Pricing</h2>
+      <span class="tag">Pricing</span>
+      <h2 class="section-title" style="margin-top:14px">Simple, transparent pricing.</h2>
+      <p class="section-sub" style="margin-top:14px;margin-left:auto;margin-right:auto;text-align:center">No hidden costs. One-time setup. Lifetime pipeline.</p>
     </div>
     <div class="pricing-grid">
       <div class="price-card reveal">
-        <div class="price-name">Starter</div>
-        <div class="price-amt">₹15,000</div>
-        <button class="btn btn-outline" style="width:100%; margin-top:20px;">Get Started</button>
+        <div class="price-name dark">Starter</div>
+        <div class="price-amt dark">₹15,000</div>
+        <div class="price-period dark">One-time setup fee</div>
+        <div class="price-divider dark"></div>
+        <div class="price-features">
+          <div class="price-feature dark"><span class="feat-check">✅</span>Apify + Snov.io setup</div>
+          <div class="price-feature dark"><span class="feat-check">✅</span>1 Instantly.ai campaign</div>
+          <div class="price-feature dark"><span class="feat-check">✅</span>Basic GHL pipeline (3 stages)</div>
+          <div class="price-feature dark"><span class="feat-check">✅</span>Make.com automation</div>
+          <div class="price-feature dark"><span class="feat-check">✅</span>7-day WhatsApp support</div>
+        </div>
+        <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center">Get started →</a>
       </div>
       <div class="price-card featured reveal">
-        <div class="price-name" style="color:white">Growth</div>
-        <div class="price-amt" style="color:white">₹35,000</div>
-        <button class="btn btn-primary" style="width:100%; margin-top:20px; background:white; color:var(--blue)">Book Call</button>
+        <div class="price-popular">Most Popular</div>
+        <div class="price-name light">Growth</div>
+        <div class="price-amt light">₹35,000</div>
+        <div class="price-period light">Setup + 1 month support</div>
+        <div class="price-divider light"></div>
+        <div class="price-features">
+          <div class="price-feature light"><span class="feat-check">✅</span>Full 5-tool pipeline</div>
+          <div class="price-feature light"><span class="feat-check">✅</span>Email sequences written for you</div>
+          <div class="price-feature light"><span class="feat-check">✅</span>WhatsApp bot setup</div>
+          <div class="price-feature light"><span class="feat-check">✅</span>Full GHL CRM + invoicing</div>
+          <div class="price-feature light"><span class="feat-check">✅</span>Make.com full automation</div>
+          <div class="price-feature light"><span class="feat-check">✅</span>30 days priority support</div>
+        </div>
+        <a href="#contact" class="btn btn-white" style="width:100%;justify-content:center">Book a call →</a>
       </div>
       <div class="price-card reveal">
-        <div class="price-name">Agency</div>
-        <div class="price-amt">₹75,000</div>
-        <button class="btn btn-outline" style="width:100%; margin-top:20px;">Contact Us</button>
+        <div class="price-name dark">Agency</div>
+        <div class="price-amt dark">₹75,000</div>
+        <div class="price-period dark">Setup + 3 months retainer</div>
+        <div class="price-divider dark"></div>
+        <div class="price-features">
+          <div class="price-feature dark"><span class="feat-check">✅</span>Everything in Growth</div>
+          <div class="price-feature dark"><span class="feat-check">✅</span>White-label GoHighLevel</div>
+          <div class="price-feature dark"><span class="feat-check">✅</span>Multi-niche pipelines</div>
+          <div class="price-feature dark"><span class="feat-check">✅</span>Monthly optimisation calls</div>
+          <div class="price-feature dark"><span class="feat-check">✅</span>90 days priority WhatsApp</div>
+          <div class="price-feature dark"><span class="feat-check">✅</span>Investor-ready reporting</div>
+        </div>
+        <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center">Contact us →</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM / ABOUT -->
+<section id="team">
+  <div class="container">
+    <div class="team-header reveal">
+      <span class="tag">About us</span>
+      <h2 class="section-title" style="margin-top:14px">The Majflow team.</h2>
+      <p class="section-sub" style="margin-top:14px;margin-left:auto;margin-right:auto;text-align:center">A lean, expert team obsessed with automation and client results.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#0D1B4B,#2B4EFF)">MJ</div>
+        <div class="team-name">Maajid Jahangir</div>
+        <div class="team-role">Founder & AI Automation Strategist</div>
+        <div class="team-bio">The architect behind every Majflow pipeline. Maajid has hands-on experience with all 5 tools and has built end-to-end automation systems for clients across India. Faridabad-based, globally focused.</div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#1D9E75,#0A6E50)">AL</div>
+        <div class="team-name">Adward Louis</div>
+        <div class="team-role">Automation Specialist</div>
+        <div class="team-bio">Expert in no-code automation workflows. Connects every tool in the pipeline using Make.com, ensures zero downtime, and optimises triggers for maximum lead flow every week.</div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#D85A30,#FF8C5A)">SJ</div>
+        <div class="team-name">Sourav Jha</div>
+        <div class="team-role">Cold Email & Sequence Specialist</div>
+        <div class="team-bio">Crafts personalised cold email sequences that convert. Specialises in subject lines, A/B testing, and reply-rate optimisation across industries and niches.</div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-avatar" style="background:linear-gradient(135deg,hsl(305, 68%, 52%),hsl(204, 88%, 61%))">SH</div>
+        <div class="team-name">Samir Hussain</div>
+        <div class="team-role">Google & Meta Ads</div>
+        <div class="team-bio">Driving high-converting campaigns that maximize ROI, generate quality leads, and accelerate business growth.</div>
+      </div>
+    </div>
+    <div style="margin-top:56px;background:var(--bg);border-radius:var(--r-lg);padding:36px;border:1px solid var(--rule)" class="reveal">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center">
+        <div>
+          <span class="tag green">Our story</span>
+          <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--navy);margin:14px 0 14px;line-height:1.3">Built from frustration.<br/>Scaled by automation.</h3>
+          <p style="font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:16px">Majflow was born when founder Maajid Jahangir watched business owners spend hours manually hunting for clients — hours that could be spent actually serving them.</p>
+          <p style="font-size:15px;color:var(--muted);line-height:1.75">We built a system using 5 best-in-class tools, connected by Make.com, that runs every Monday without any human intervention. The result? Businesses get 300+ leads weekly and only need to show up for the close.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div style="background:var(--white);border-radius:var(--r);padding:20px;border:1px solid var(--rule);text-align:center">
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--blue)">2024</div>
+            <div style="font-size:13px;color:var(--muted);margin-top:4px">Founded in Faridabad</div>
+          </div>
+          <div style="background:var(--white);border-radius:var(--r);padding:20px;border:1px solid var(--rule);text-align:center">
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--green)">5+</div>
+            <div style="font-size:13px;color:var(--muted);margin-top:4px">Clients automated</div>
+          </div>
+          <div style="background:var(--white);border-radius:var(--r);padding:20px;border:1px solid var(--rule);text-align:center">
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--blue)">₹0</div>
+            <div style="font-size:13px;color:var(--muted);margin-top:4px">Ad spend needed</div>
+          </div>
+          <div style="background:var(--white);border-radius:var(--r);padding:20px;border:1px solid var(--rule);text-align:center">
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--green)">100%</div>
+            <div style="font-size:13px;color:var(--muted);margin-top:4px">Satisfaction rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="faq-header reveal">
+      <span class="tag">FAQ</span>
+      <h2 class="section-title" style="margin-top:14px">Questions we get asked.</h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Do I need any technical knowledge?</span><div class="faq-icon">+</div></div><div class="faq-a"><div class="faq-a-inner">Absolutely not. We handle 100% of the setup — Apify, Snov.io, Instantly.ai, GoHighLevel, MessengerFlow, and Make.com. You don't touch a single line of code. Once live, the system runs itself.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>How long does setup take?</span><div class="faq-icon">+</div></div><div class="faq-a"><div class="faq-a-inner">Full pipeline setup takes 7–10 days. Email warm-up (mandatory for deliverability) runs in parallel for 14 days. You'll see first results in week 2 after launch.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Do I need to buy the tools separately?</span><div class="faq-icon">+</div></div><div class="faq-a"><div class="faq-a-inner">Yes — the tools are third-party SaaS products you subscribe to directly (~$254/month total). We handle setup and configuration. This keeps you in control of your own data and accounts.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Is cold email legal in India?</span><div class="faq-icon">+</div></div><div class="faq-a"><div class="faq-a-inner">B2B cold email outreach is legal in India and most countries. We follow best practices — verified emails, unsubscribe links, compliant messaging — to ensure your campaigns are both legal and effective.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>What niche or industry works best?</span><div class="faq-icon">+</div></div><div class="faq-a"><div class="faq-a-inner">The pipeline works across most B2B niches — digital marketing, consulting, SaaS, real estate, HR, web development, and more. Local business targeting via Google Maps works exceptionally well for India.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>What if I don't get results?</span><div class="faq-icon">+</div></div><div class="faq-a"><div class="faq-a-inner">We optimise the campaign — subject lines, targeting, sequences — until it works. Growth and Agency plans include ongoing support. Results depend on niche and offer quality, but we've never had a pipeline that didn't generate replies.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Can I scale after setup?</span><div class="faq-icon">+</div></div><div class="faq-a"><div class="faq-a-inner">Yes — scaling means adding more domains, more lead sources, and more Instantly.ai seats. The Make.com automation handles increased volume automatically. We've designed the system to scale without proportional cost increases.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Do you offer ongoing management?</span><div class="faq-icon">+</div></div><div class="faq-a"><div class="faq-a-inner">Yes. Our Agency plan includes 3 months of monthly optimisation calls. We also offer standalone retainer packages for businesses who want continuous campaign management and lead flow improvement.</div></div></div>
     </div>
   </div>
 </section>
@@ -300,17 +820,81 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
+    <div class="reveal" style="margin-bottom:56px">
+      <span class="tag">Get in touch</span>
+      <h2 class="section-title" style="margin-top:14px">Let's automate your growth.</h2>
+      <p class="section-sub" style="margin-top:14px">Book a free 30-minute strategy call — we'll map out exactly what your pipeline should look like.</p>
+    </div>
     <div class="contact-grid">
-      <div class="contact-info reveal-left">
-        <h2 class="section-title">Let's Talk.</h2>
-        <p>+91 93500 46020</p>
-        <p>maajid@majflow.com</p>
+      <div class="reveal-left">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div><div class="contact-label">Phone / WhatsApp</div><div class="contact-val">+91 93500 46020</div></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📧</div>
+            <div><div class="contact-label">Business Email</div><div class="contact-val"><a href="mailto:maajid@majflow.com">maajid@majflow.com</a></div></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📩</div>
+            <div><div class="contact-label">Personal Email</div><div class="contact-val"><a href="mailto:Khanmaajid07@gmail.com">Khanmaajid07@gmail.com</a></div></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🌐</div>
+            <div><div class="contact-label">Website</div><div class="contact-val"><a href="https://majflow.com">majflow.com</a> &nbsp;/&nbsp; <a href="https://majflow.io">majflow.io</a></div></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div><div class="contact-label">Office Address</div><div class="contact-val">Ashoka Part 2, Palla<br/>Sector 37, Faridabad<br/>Haryana, India</div></div>
+          </div>
+        </div>
+        <div class="map-box">
+          <div class="map-placeholder">
+            <div class="map-pin">📍</div>
+            <div class="map-addr">Majflow HQ</div>
+            <div class="map-sub">Ashoka Part 2, Palla, Sector 37<br/>Faridabad, Haryana 121003</div>
+            <a href="https://maps.google.com/?q=Sector+37+Faridabad+Haryana" target="_blank" style="display:inline-block;margin-top:12px;font-size:13px;color:var(--blue);font-weight:500">Open in Google Maps →</a>
+          </div>
+        </div>
       </div>
       <div class="contact-form reveal-right">
-        <input type="text" placeholder="Name" style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px;">
-        <input type="email" placeholder="Email" style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px;">
-        <textarea placeholder="Message" style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px; height:100px;"></textarea>
-        <button class="form-submit" onclick="handleSubmit()">Send Request</button>
+        <h3 style="font-size:20px;font-weight:700;color:var(--navy);margin-bottom:6px">Book your free strategy call</h3>
+        <p style="font-size:14px;color:var(--muted);margin-bottom:24px">Fill this in and Maajid will reach out within 2 hours.</p>
+        <div class="form-row">
+          <div class="form-group"><label>Your name</label><input type="text" placeholder="Rahul Kapoor"/></div>
+          <div class="form-group"><label>Phone / WhatsApp</label><input type="tel" placeholder="+91 98765 43210"/></div>
+        </div>
+        <div class="form-group"><label>Email address</label><input type="email" placeholder="rahul@yourcompany.com"/></div>
+        <div class="form-group">
+          <label>Business type</label>
+          <select>
+            <option value="">Select your niche…</option>
+            <option>Digital Marketing Agency</option>
+            <option>Freelancer / Consultant</option>
+            <option>SaaS / Tech Company</option>
+            <option>Real Estate</option>
+            <option>E-commerce</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>What do you want to automate?</label><textarea placeholder="Tell us about your business and what you're trying to achieve…"></textarea></div>
+        <button class="form-submit" onclick="handleSubmit()">📅 Book my free strategy call</button>
+        <p class="form-note">We respond within 2 hours. No spam, ever.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section id="cta">
+  <div class="container cta-content">
+    <div class="reveal">
+      <h2 class="cta-h2">Ready to stop chasing clients?</h2>
+      <p class="cta-sub">One pipeline setup. 300+ leads every week. Your calendar fills itself.</p>
+      <div class="cta-btns">
+        <a href="#contact" class="btn btn-white">📅 Book a free call</a>
+        <a href="https://wa.me/919350046020" target="_blank" class="btn btn-ghost">💬 WhatsApp us now</a>
       </div>
     </div>
   </div>
@@ -319,16 +903,135 @@
 <!-- FOOTER -->
 <footer>
   <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <div class="footer-brand-mark">MJ</div>
+          <div class="footer-brand-name">Maj<span>flow</span></div>
+        </div>
+        <p class="footer-desc">Fully automated client acquisition pipelines for freelancers, consultants and agencies across India. We automate your growth.</p>
+        <div class="footer-social-row">
+          <a href="https://wa.me/919350046020" class="footer-social" title="WhatsApp">💬</a>
+          <a href="mailto:maajid@majflow.com" class="footer-social" title="Email">📧</a>
+          <a href="#" class="footer-social" title="LinkedIn">🔗</a>
+          <a href="#" class="footer-social" title="Instagram">📸</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <a href="#pricing" class="footer-link">Pipeline Setup</a>
+        <a href="#pricing" class="footer-link">Lead Gen Automation</a>
+        <a href="#pricing" class="footer-link">CRM Implementation</a>
+        <a href="#pricing" class="footer-link">WhatsApp Bots</a>
+        <a href="#pricing" class="footer-link">White-label GHL</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Tools</div>
+        <a href="https://apify.com" target="_blank" class="footer-link">Apify</a>
+        <a href="https://snov.io" target="_blank" class="footer-link">Snov.io</a>
+        <a href="https://instantly.ai" target="_blank" class="footer-link">Instantly.ai</a>
+        <a href="https://gohighlevel.com" target="_blank" class="footer-link">GoHighLevel</a>
+        <a href="https://messengerflow.com" target="_blank" class="footer-link">MessengerFlow</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <a href="#team" class="footer-link">About Maajid</a>
+        <a href="#results" class="footer-link">Results</a>
+        <a href="#reviews" class="footer-link">Reviews</a>
+        <a href="#faq" class="footer-link">FAQ</a>
+        <a href="#contact" class="footer-link">Contact</a>
+        <div style="margin-top:20px;font-size:12px;color:rgba(255,255,255,.25);line-height:1.6">
+          Ashoka Part 2, Palla<br/>Sector 37, Faridabad<br/>Haryana 121003, India<br/>+91 93500 46020
+        </div>
+      </div>
+    </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2025 Majflow · Maajid Jahangir</div>
+      <div class="footer-copy">© 2025 Majflow · Maajid Jahangir · All rights reserved</div>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
     </div>
   </div>
 </footer>
 
-<button id="stt" onclick="scrollToTop()">↑</button>
+<!-- Scroll to top -->
+<button id="stt" onclick="scrollToTop()" aria-label="Scroll to top">↑</button>
+
+<!-- Toast -->
 <div class="toast" id="toast"></div>
 
-<!-- JS Link -->
-<script src="app.js"></script>
+<script>
+// ── Navbar scroll ────────────────────────────────────
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);
+  document.getElementById('stt').classList.toggle('show',window.scrollY>400);
+});
+
+// ── Mobile menu ──────────────────────────────────────
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobileMenu');
+let menuOpen=false;
+hamburger.addEventListener('click',()=>{
+  menuOpen=!menuOpen;
+  mobileMenu.style.display=menuOpen?'flex':'none';
+  const spans=hamburger.querySelectorAll('span');
+  if(menuOpen){spans[0].style.transform='rotate(45deg) translate(5px,5px)';spans[1].style.opacity='0';spans[2].style.transform='rotate(-45deg) translate(5px,-5px)'}
+  else{spans.forEach(s=>{s.style.transform='';s.style.opacity=''})}
+});
+function closeMob(){menuOpen=false;mobileMenu.style.display='none';hamburger.querySelectorAll('span').forEach(s=>{s.style.transform='';s.style.opacity=''})}
+
+// ── Scroll animations ────────────────────────────────
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}
+  });
+},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach((el,i)=>{
+  el.style.transitionDelay=`${(i%6)*0.08}s`;
+  obs.observe(el);
+});
+
+// ── Pipeline animation ───────────────────────────────
+let activeStep=0;
+const pipeSteps=document.querySelectorAll('.pipe-step');
+function animatePipeline(){
+  pipeSteps.forEach((s,i)=>s.classList.toggle('active',i===activeStep));
+  activeStep=(activeStep+1)%pipeSteps.length;
+}
+setInterval(animatePipeline,1800);
+
+// ── FAQ ──────────────────────────────────────────────
+function toggleFaq(el){
+  const item=el.parentElement;
+  const wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(f=>f.classList.remove('open'));
+  if(!wasOpen)item.classList.add('open');
+}
+
+// ── Form submit ──────────────────────────────────────
+function handleSubmit(){
+  showToast('🎉 Request sent! Maajid will reach out within 2 hours.');
+}
+
+// ── Toast ────────────────────────────────────────────
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3800);
+}
+
+// ── Scroll to top ────────────────────────────────────
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+
+// ── Active nav link ──────────────────────────────────
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});
+  navLinks.forEach(a=>{a.style.color=a.getAttribute('href')==='#'+cur?'var(--white)':'rgba(255,255,255,.75)'});
+},{ passive:true });
+</script>
 </body>
 </html>
